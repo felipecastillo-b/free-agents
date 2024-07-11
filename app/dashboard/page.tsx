@@ -1,13 +1,21 @@
 "use client"
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 function Dashboard() {
     const [usuario, setUsuario] = useState<any>({});
-    const token = localStorage.getItem('token'); // Toma el token almacenado en localstorage
+    const router = useRouter();
 
     useEffect(() => {
+        const token = localStorage.getItem('token'); // Toma el token almacenado en localstorage
+
         async function fetchUsuario() {
+            if (!token) {
+                router.push('/login');
+                return;
+            }
+
             try {
                 const config = {
                     headers: {
@@ -22,7 +30,7 @@ function Dashboard() {
         }
 
         fetchUsuario();
-    }, [token]);
+    }, [router]);
 
     return (
         <div>
