@@ -34,6 +34,11 @@ function Dashboard() {
                 console.error('Error al obtener datos del dashboard:', error);
                 //console.log('Redirigir al login si ocurre un error')
                 //router.push('/login');
+
+                if (axios.isAxiosError(error) && error.response && error.response.status === 401) {
+                    localStorage.removeItem("token"); // Opcional limpiar token invalido
+                    router.push("/login");
+                }
             }
         }
 
