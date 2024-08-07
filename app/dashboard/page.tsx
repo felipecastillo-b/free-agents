@@ -55,6 +55,12 @@ function Dashboard() {
         router.push('/perfilJugador');
     }
 
+    // Funcion que maneja el Logout
+    const handleLogout = () => {
+        localStorage.removeItem("token"); // Remueve el Token
+        router.push("login"); // Reedirige a la ruta login
+    };
+
     return (
         <div>
             <h1>Dashboard</h1>
@@ -73,6 +79,10 @@ function Dashboard() {
             ) : (
                 <button onClick={handleRegisterAsPlayer}>Registrar como Jugador</button>
             )}
+            <br />
+            <button onClick={handleLogout} style={{ marginTop: "10px" }}>
+                Cerrar Sesion
+            </button>
         </div>
     );
 }
