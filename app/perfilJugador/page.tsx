@@ -34,6 +34,10 @@ function PerfilJugador() {
         fetchJugador();
     }, [router]);
 
+    const handleEditPlayerProfile = () => {
+        router.push("/editarPerfilJugador");
+    };
+
     // Escoger luego al hacer las vistas si mostrar todos los datos o solo los datos rellenados
     return (
         <div>
@@ -60,6 +64,10 @@ function PerfilJugador() {
             ) : (
                 <p>Cargando...</p>
             )}
+            <br />
+            <button onClick={handleEditPlayerProfile} style={{ marginTop: "20px" }}>
+                Editar Perfil Jugador
+            </button>
         </div>
     );
 }
