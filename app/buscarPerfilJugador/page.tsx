@@ -7,7 +7,17 @@ function BuscarPerfilJugador() {
     const [username, setUsername] = useState<string>("");
     const [jugador, setJugador] = useState<any | null>(null);
     const [mensaje, setMensaje] = useState<string | null>(null);
+    const router = useRouter();
     
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            router.push("/login");
+            return;
+        }
+    }, [router])
+
     // maneja el cambio de entrada
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value);
