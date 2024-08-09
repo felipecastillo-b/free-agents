@@ -83,7 +83,7 @@ function MisEquipos() {
             }
         } catch (error) {
             console.log('Error al borrar el equipo', error);
-            setMensaje('Error al borrar el equipo');
+            setMensaje('Error al borrar el equipo, no eres Administrador');
         }
     };
 
