@@ -54,6 +54,39 @@ function MisEquipos() {
         router.push(`/editarEquipo?id=${id}`);
     };
 
+    const handleBorrarEquipo = async (id: number) => {
+        const confirmDelete = window.confirm('¿Estás seguro de que quieres borrar el Equipo?');
+        if (!confirmDelete) return;
+
+        try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                router.push("/login");
+                return;
+            }
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+
+            const response = await axios.delete(`/api/borrarEquipo/${id}`, config);
+
+            if (response.data.error) {
+                setMensaje(response.data.error);
+            } else {
+                setMensaje("Equipo borrado exitosamente");
+                // Actualiza la lista de equipos despues de borrar
+                fetchEquipos(token);
+            }
+        } catch (error) {
+            console.log('Error al borrar el equipo', error);
+            setMensaje('Error al borrar el equipo');
+        }
+    };
+
     return (
         <div>
             <h1>Mis Equipos</h1>
@@ -69,7 +102,10 @@ function MisEquipos() {
                             <p>{equipo.descripcion}</p>
                             <p>Fundado en: {equipo.fundadoEn ? new Date(equipo.fundadoEn).toLocaleDateString() : 'N/A'}</p>
                             {equipo.esAdministrador && (
-                                <button onClick={() => handleEditarEquipo(equipo.id)}>Editar Equipo</button>
+                                <div>
+                                    <button onClick={() => handleEditarEquipo(equipo.id)} style={{ marginRight: "10px" }}>Editar Equipo</button>
+                                    <button onClick={() => handleBorrarEquipo(equipo.id)} style={{ backgroundColor: "red", color: "white" }}>Borrar Equipo</button>
+                                </div>
                             )}
                             <br /><br />
                         </li>
