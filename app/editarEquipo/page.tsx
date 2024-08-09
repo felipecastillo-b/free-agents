@@ -62,6 +62,7 @@ function EditarEquipo() {
         } catch (error) {
             console.error("Error al actualizar el equipo", error);
             setMensaje("Error al actualizar el equipo");
+            router.push("/misEquipos");
         }
     };
 
