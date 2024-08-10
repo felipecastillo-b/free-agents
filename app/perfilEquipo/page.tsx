@@ -3,11 +3,20 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+interface Miembro {
+    jugador: {
+        id: number;
+        username: string;
+    };
+    rol: string | null;
+}
+
 interface Equipo {
     id: number;
     nombre: string;
     descripcion: string;
     fundadoEn: string;
+    miembros: Miembro[];
 }
 
 const PerfilEquipo: React.FC = () => {
@@ -59,6 +68,16 @@ const PerfilEquipo: React.FC = () => {
                     Invitar Jugador
                 </button>
             )}
+
+            <h2>Miembros del Equipo</h2>
+            <ul>
+                {equipo.miembros.map((miembro) => (
+                    <li key={miembro.jugador.id}>
+                        <p>Nickname: {miembro.jugador.username}</p>
+                        <p>Rol: {miembro.rol ?? 'No asignado'}</p>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };
