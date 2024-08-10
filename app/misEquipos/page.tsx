@@ -87,6 +87,11 @@ function MisEquipos() {
         }
     };
 
+    // funcion para manejar reedirigir al perfil del equipo
+    const handleVerPerfilEquipo = (id: number) => {
+        router.push(`/perfilEquipo?id=${id}`);
+    };
+    
     return (
         <div>
             <h1>Mis Equipos</h1>
@@ -101,6 +106,9 @@ function MisEquipos() {
                             <h3>{equipo.nombre}</h3>
                             <p>{equipo.descripcion}</p>
                             <p>Fundado en: {equipo.fundadoEn ? new Date(equipo.fundadoEn).toLocaleDateString() : 'N/A'}</p>
+                            <button onClick={() => handleVerPerfilEquipo(equipo.id)} style={{ marginRight: "10px" }}>
+                                Ver Equipo
+                            </button>
                             {equipo.esAdministrador && (
                                 <div>
                                     <button onClick={() => handleEditarEquipo(equipo.id)} style={{ marginRight: "10px" }}>Editar Equipo</button>
