@@ -3,12 +3,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// Define el tipo para el equipo
 interface Equipo {
     id: number;
     nombre: string;
     descripcion: string;
-    fundadoEn: string; // Puede ser 'string' o 'Date', dependiendo de como venga el dato desde la API
+    fundadoEn: string;
 }
 
 const PerfilEquipo: React.FC = () => {
@@ -45,14 +44,18 @@ const PerfilEquipo: React.FC = () => {
         return <div>Loading...</div>;
     }
 
+    const handleInvitarJugador = () => {
+        router.push(`/invitarJugador?id=${equipoId}`);
+    };
+
     return (
         <div>
-            <h1>nombre: {equipo.nombre}</h1>
-            <p>descripcion: {equipo.descripcion}</p>
+            <h1>Nombre: {equipo.nombre}</h1>
+            <p>Descripción: {equipo.descripcion}</p>
             <p>Fundado en: {new Date(equipo.fundadoEn).toLocaleDateString()}</p>
 
             {esAdministrador && (
-                <button onClick={() => {/* Logica para invitar a un jugador */}}>
+                <button onClick={handleInvitarJugador}>
                     Invitar Jugador
                 </button>
             )}
